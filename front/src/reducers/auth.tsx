@@ -17,8 +17,8 @@ interface AuthState {
 
 const user = JSON.parse(localStorage.getItem("user") || '{}');
 
-const initialState: AuthState = user
-    ? { isLoggedIn: true, user }
+const initialState: AuthState = user && user.body
+    ? { isLoggedIn: true, user: user.body }
     : { isLoggedIn: false, user: null };
 
 const authReducer = (state = initialState, action: any): AuthState => {

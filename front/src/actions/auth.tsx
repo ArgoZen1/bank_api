@@ -6,7 +6,7 @@ import {
 
 import AuthService from "../services/auth.service";
 import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 
 type AppDispatch = ThunkDispatch<any, any, AnyAction>;
 
@@ -37,10 +37,12 @@ export const login = (username: string, password: string) => (dispatch: AppDispa
     );
 };
 
-export const logout = () => (dispatch: AppDispatch) => {
+export const logout = () => (dispatch: Dispatch<AnyAction>) => {
     AuthService.logout();
 
     dispatch({
         type: LOGOUT,
     });
+
+    return Promise.resolve();
 };

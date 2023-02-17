@@ -1,29 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import argentBankLogo from '../../assets/argentBankLogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { RootState } from '../../reducers/index';
+import { logout } from '../../actions/auth';
+import { useState, useEffect } from 'react';
+
 import './NavBar.css';
 
 interface NavBarProps { }
 
 const NavBar: React.FC<NavBarProps> = () => {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const location = useLocation();
+    const dispatch: ThunkDispatch<RootState, void, AnyAction> = useDispatch();
+    const { user } = useSelector((state: RootState) => state.auth);
+
 
     useEffect(() => {
-        const token = localStorage.getItem('user');
-        if (token) {
+        // Vérifier si l'utilisateur est connecté
+        if (user) {
             setLoggedIn(true);
+
         } else {
             setLoggedIn(false);
+
         }
-    }, [location]);
+        console.log("loggedIn", loggedIn);
+
+    }, [user]);
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        setLoggedIn(false);
+        dispatch(logout());
     };
+
+    const [loggedIn, setLoggedIn] = useState(false);
 
     return (
         <nav className='main-nav'>
