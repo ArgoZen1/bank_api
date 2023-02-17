@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component should render correctly 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer"
+  >
+    <p
+      class="footer-text"
+    >
+      Copyright 2020 Argent Bank
+    </p>
+  </footer>
+</DocumentFragment>
+`;
